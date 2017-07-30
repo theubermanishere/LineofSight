@@ -1,0 +1,92 @@
+<!doctype>
+<html>
+    <head>
+        <style>
+        body {
+            margin: 0;
+            background: #eee;
+        }
+        #canvas {
+            width: 640px;
+            height: 360px;
+            background: #fff;
+        }
+        </style>
+    </head>
+    <body>
+        <canvas id="canvas" width="640" height="360"></canvas>
+    </body>
+</html>
+
+<script>
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+function draw() {
+    
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ctx.strokeStyle = "#999";
+    for(var i=0;i<segments.length;i++){
+        var seg = segments[i];
+        ctx.beginPath();
+        ctx.moveTo(seg.a.x,seg.a.y);
+        ctx.lineTo(seg.b.x,seg.b.y);
+        ctx.stroke();
+
+        ctx.fillStyle = "red";
+        ctx.beginPath();
+        ctx.arc(Mouse.x, Mouse.y, 4, 0, 2*Math.PI, false);
+        ctx.fill();
+
+    }
+
+    var segments = [
+
+    {a:{x:0,y:0}, b:{x:640,y:0}},
+    ]
+
+}
+
+ctx.strokeStyle = "Blue";
+
+var results = [
+{name: "Satisfied", count: 143, color: "lightblue"},
+{name: "Not so much", count: 80, color: "lightred"},
+{name: "Undecided", count: 40, color: "grey"}];
+
+ctx.moveTo(320,180);
+// Calculating the ratios of different arcs.
+
+var tot = results[1].count+results[2].count+results[0].count
+var rat1 = 2*Math.PI*results[0].count/tot
+var rat2 = 2*Math.PI*results[1].count/tot
+var rat3 = 2*Math.PI*results[2].count/tot
+
+ctx.beginPath();
+ctx.arc(320,180,100,0,rat1);
+ctx.fillStyle="green";
+ctx.lineTo(320,180);
+ctx.fill();
+ctx.beginPath();
+ctx.arc(320,180,100,rat1,rat1+rat2);
+ctx.fillStyle="red";
+ctx.lineTo(320,180);
+ctx.fill();
+ctx.beginPath();
+ctx.arc(320,180,100,rat1+rat2,rat1+rat2+rat3);
+ctx.lineTo(320,180);
+ctx.fillStyle="grey";
+ctx.fill();
+
+ctx.font="28px Lato";
+ctx.fillStyle="fuschia";
+
+
+
+
+
+
+
+</script>
+
